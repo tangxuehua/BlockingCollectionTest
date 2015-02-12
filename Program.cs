@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,8 +14,8 @@ namespace Startup
         {
             var queue = new BlockingCollection<long>();
             var dict = new ConcurrentDictionary<long, ManualResetEvent>();
-            var producerCount = 2;
-            var consumerCount = 1;
+            var producerCount = int.Parse(ConfigurationManager.AppSettings["producerCount"]);
+            var consumerCount = int.Parse(ConfigurationManager.AppSettings["consumerCount"]);
             var messageCountOfSingleProducer = 1000000;
             var printBatchSize = 100000;
             var producerActions = new List<Action>();
